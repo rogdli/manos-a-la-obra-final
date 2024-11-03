@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useFetchUsersById } from '../../hooks/useFetchUsersById';
-import "../../styles/Styles.css";
+import "../../styles/styles.css";
 
 export const MyStoryJ = ({ story }) => {
     const assignedToArray = story.assignedTo 
