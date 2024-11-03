@@ -1,0 +1,31 @@
+.story-j {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.story-j:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.story-j .story-name {
+    color: #2b7792;
+    font-size: 20px;
+}
+
+.story-j .story-description {
+    color: #666;
+    font-size: 16px;
+}
+
+.story-link {
+    text-decoration: none;
+    color: inherit;
+    list-style: none;
+    padding-left: 0;
+}

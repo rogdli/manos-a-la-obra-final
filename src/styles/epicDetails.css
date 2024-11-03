@@ -1,0 +1,30 @@
+.epic-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .epic-container h1,
+  .epic-container h2,
+  .epic-container h3 {
+    margin-bottom: 20px;
+  }
+  
+.epic-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.epic-container h1,
+.epic-container h2,
+.epic-container h3 {
+
+    margin-bottom: 20px;
+}
+
+.epic-container p {
+    color: #666;
+    line-height: 1.6;
+}
+

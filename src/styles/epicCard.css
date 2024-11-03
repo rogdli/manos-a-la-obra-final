@@ -1,0 +1,43 @@
+.epic-name {
+    color: #2b7792;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .epic-link {
+      text-decoration: none; 
+      color: inherit;       
+  }
+  
+  .epic-k {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+  }
+  
+  .epic-k:hover {
+      transform: translateY(-5px);
+  }
+  
+  .epic-name {
+      color: #63a7b3;
+      font-size: 18px;
+      margin-bottom: 5px;
+      font-weight: bold;
+  }
+  
+  .epic-description {
+      color: #1a3d3b;
+      font-size: 14px;
+  }
+  
+  .epic-icon {
+      color: #999;
+      font-size: 12px;
+  }
+  

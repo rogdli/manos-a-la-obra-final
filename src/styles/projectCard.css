@@ -1,0 +1,25 @@
+.project-n {
+    background-color: #ffffff;  
+    border: 1px solid #c0e4e9;      
+    border-radius: 8px;          /* bordes redondeados */
+    padding: 20px;               /* espaciado interno */
+    margin: 15px;               
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* sombra sutil */
+    transition: transform 0.2s ease-in-out;
+}
+
+.project-n:hover {
+    transform: scale(1.05);      
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);  
+}
+
+.project-link {
+    text-decoration: none;     
+    color: inherit;            
+}
+
+.project-n h2 {
+    color: #337379;               
+    font-size: 24px;            
+    margin: 0;                
+}

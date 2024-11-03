@@ -1,0 +1,73 @@
+ .navbar {
+    background-image: url('images/Opengraph-min.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .menuBars {
+    margin-left: 2rem;
+    font-size: 2rem;
+    background: none;
+    color: #ffffff;
+  }
+  
+  .navMenu {
+    background-color: #ffffff;
+    width: 250px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    transition: 850ms;
+  }
+  
+  .navMenu.active {
+    left: 0;
+    transition: 450ms;
+  }
+  
+  .navText {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 8px 0px 8px 16px;
+    list-style: none;
+    height: 60px;
+  }
+  
+  .navText a {
+    text-decoration: none;
+    color: #2b7792;
+    font-size: 18px;
+    width: 95%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-radius: 4px;
+  }
+  
+  .navText a:hover {
+    background-color: #2b7792;
+    color: #fff;
+  }
+  
+  .navMenuItems {
+    width: 100%;
+  }
+  
+  .navbarToggle {
+    background-color: #ffffff;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
