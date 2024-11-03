@@ -133,7 +133,7 @@ form {
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-image: url('images/Opengraph-min.png');
+  background-image: url('/images/Opengraph-min.png');
  background-repeat: no-repeat;
   background-size: cover;
 }
