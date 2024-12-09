@@ -1,22 +1,25 @@
 import { useState, useEffect } from "react";
 
-
 export const useFetchTasks = (storyId) => {
 
     const getTasks = async (storyId) => {
-        const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/stories/${storyId}/tasks`;
+        const url = `http://localhost:3000/api/stories/${storyId}/tasks`;
         const token = localStorage.getItem("authToken");
 
         const resp = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                auth: token,
+                'Authorization': `Bearer ${token}`
             }
         });
 
-        const { data } = await resp.json();
-        return data;
+        if (!resp.ok) {
+            throw new Error(`Error: ${resp.status}`);
+        }
+
+        const tasks = await resp.json();
+        return tasks;
     };
 
     const [state, setState] = useState({

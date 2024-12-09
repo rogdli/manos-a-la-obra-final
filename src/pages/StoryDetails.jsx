@@ -35,11 +35,11 @@ export const StoryDetails = () => {
         const token = localStorage.getItem("authToken");
 
         try {
-            const response = await fetch(`https://lamansysfaketaskmanagerapi.onrender.com/api/tasks/${taskToDelete._id}`, {
+            const response = await fetch(`http://localhost:3000/api/stories/${storyId}/tasks/${taskToDelete._id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
-                    auth: token,
+                    'Authorization': `Bearer ${token}`,
                 }
             });
 
@@ -79,7 +79,6 @@ export const StoryDetails = () => {
                                 <button onClick={() => setShowAddTaskForm(true)}>Add Task</button>
                             </div>
                             
-                            {/* Coloca el formulario antes de la lista de tareas */}
                             {showAddTaskForm && (
                                 <TaskForm 
                                     storyId={storyId} 

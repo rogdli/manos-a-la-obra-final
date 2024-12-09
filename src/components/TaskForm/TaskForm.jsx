@@ -4,12 +4,11 @@ const TaskForm = ({ storyId, onTaskAdded }) => {
     const [newTask, setNewTask] = useState({
         name: "",
         description: "",
-        story: storyId,
+        story: storyId,  // Ya pasas el ID de la historia al crear la tarea
         status: "TO_DO",
-        dueDate: "",
-        done: false
+        done: false,
     });
-    
+
     const [validationErrors, setValidationErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -27,58 +26,53 @@ const TaskForm = ({ storyId, onTaskAdded }) => {
 
     const handleAddTask = async (e) => {
         e.preventDefault();
-        
+
         if (!validateForm()) {
             return;
         }
-    
+
         setIsSubmitting(true);
-        const token = localStorage.getItem("authToken");
-    
+        const token = localStorage.getItem("authToken"); // Asegúrate de tener el token de autorización
+
         const taskData = { 
             ...newTask, 
             done: newTask.status === "DONE" // Si el estado es DONE, marca como completado
         };
-        
-        
-    
-        console.log("Data being sent:", taskData); // Revisa si dueDate es correcto
-    
+
+        console.log("Data being sent:", taskData);
+
         try {
-            const response = await fetch('https://lamansysfaketaskmanagerapi.onrender.com/api/tasks', {
+            const response = await fetch(`http://localhost:3000/api/stories/${storyId}/tasks`, { 
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    auth: token,
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify(taskData),
             });
-    
+
             const responseData = await response.json();
-            console.log("Response from server:", responseData); // Revisa la respuesta del servidor
-    
+            console.log("Response from server:", responseData); 
+
             if (response.ok) {
                 setNewTask({
                     name: "",
                     description: "",
                     story: storyId,
                     status: "TO_DO",
-                    dueDate: ""
+                    done: false,
                 });
-                onTaskAdded();
+                onTaskAdded();  // Llamamos a la función para actualizar el listado
             } else {
                 alert("Error creating task: " + responseData.message);
             }
         } catch (error) {
             console.error("Error adding task:", error);
-            alert("Error creating task");
+            alert("Error creating task" + error.message);
         } finally {
             setIsSubmitting(false);
         }
     };
-    
-    
-    
 
     return (
         <div className="modal-overlay">
@@ -109,20 +103,19 @@ const TaskForm = ({ storyId, onTaskAdded }) => {
                         )}
                     </div>
                     <div>
-                <select
+                        <select
                             value={newTask.status}
-                            onChange={(e) => setNewTask({ 
-                                ...newTask, 
-                                status: e.target.value, 
-                                done: e.target.value === "DONE" // Actualiza done según el estado
+                            onChange={(e) => setNewTask({
+                                ...newTask,
+                                status: e.target.value,
+                                done: e.target.value === "DONE" // Actualiza el estado done según la selección
                             })}
                             disabled={isSubmitting}
                         >
                             <option value="TO_DO">To Do</option>
                             <option value="IN_PROGRESS">In Progress</option>
                             <option value="DONE">Done</option>
-                </select>
-
+                        </select>
                     </div>
                     <div className="button-group">
                         <button type="submit" disabled={isSubmitting}>

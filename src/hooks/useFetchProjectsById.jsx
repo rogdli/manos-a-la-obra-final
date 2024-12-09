@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 
-
 export const useFetchProjectsById = (projectId) => {
 
     const getProjectsById = async (projectId) => {
-        const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/projects/${projectId}`;
+        const url = `http://localhost:3000/api/projects/${projectId}`;
         const token = localStorage.getItem("authToken");
-
-        const response = await fetch(url, {
+        console.log("Token obtenido:", token);
+        
+        const resp = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                auth: token,
+            'Authorization': `Bearer ${token}`
             }
         });
 
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
-        }
-
-        const { data } = await response.json();
-        return data;
+        if (!resp.ok) {
+            throw new Error('Error fetching projects');
+          }
+      
+          const projects = await resp.json();
+          return projects;
     };
 
     const [state, setState] = useState({
@@ -31,6 +31,8 @@ export const useFetchProjectsById = (projectId) => {
     useEffect(() => {
         getProjectsById(projectId)
             .then(project => {
+                console.log("Projects data:", project);
+
                 setState({
                     data: project,
                     loading: false

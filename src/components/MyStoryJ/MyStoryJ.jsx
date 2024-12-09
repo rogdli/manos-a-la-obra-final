@@ -2,13 +2,17 @@ import { Link } from 'react-router-dom';
 import { useFetchUsersById } from '../../hooks/useFetchUsersById';
 import "../../styles/styles.css";
 
+// Carta de la historia asignada a usuario -My Stories-
+
 export const MyStoryJ = ({ story }) => {
+
     const assignedToArray = story.assignedTo 
         ? String(story.assignedTo).split(',').map(id => id.trim())
         : [];
 
     const { usernames } = useFetchUsersById(assignedToArray);
 
+    // Esto me hizo renegar...
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-GB');

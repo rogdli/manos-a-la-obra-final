@@ -3,19 +3,20 @@ import { useState, useEffect } from "react";
 
 export const useFetchEpicsById = (epicId) => {
     const getEpicsById = async (epicId) => {
-        const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/epics/${epicId}`;
+        const url = `http://localhost:3000/api/epics/${epicId}`;
         const token = localStorage.getItem("authToken");
 
         const resp = await fetch(url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                auth: token,
+                'Authorization': `Bearer ${token}` 
             }
         });
 
-        const { data } = await resp.json();
-        return data;
+        const epics = await resp.json();
+        return epics; 
+        
     };
 
     const [state, setState] = useState({

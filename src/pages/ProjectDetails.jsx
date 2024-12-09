@@ -18,6 +18,7 @@ const ProjectDetails = () => {
     useEffect(() => {
         setIsLoading(projectLoading || usersLoading);
     }, [projectLoading, usersLoading]);
+    console.log("Datos en ProjectDetails:", projectsData);
 
     return (
         <>

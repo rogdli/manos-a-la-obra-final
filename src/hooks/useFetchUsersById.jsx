@@ -2,24 +2,37 @@ import { useState, useEffect } from "react";
 
 export const useFetchUsersById = (userIds) => {
   const getUserById = async (userId) => {
-    const url = `https://lamansysfaketaskmanagerapi.onrender.com/api/users/${userId}`;
+    const url = `http://localhost:3000/api/users/${userId}`;
     const token = localStorage.getItem("authToken");
 
-    const resp = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        auth: token, 
-      }
-    });
+    try {
+      const resp = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        }
+      });
 
-    const { data } = await resp.json(); 
-    return data;
+      if (resp.status === 404) {
+        console.error(`User with ID ${userId} not found`);
+        return null;
+      } else if (!resp.ok) {
+        console.error(`Error fetching user with ID ${userId}: ${resp.status} - ${resp.statusText}`);
+        throw new Error(`Failed to fetch user with ID ${userId}`);
+      }
+
+      const user = await resp.json();
+      return user;
+    } catch (error) {
+      console.error(`Error fetching user with ID ${userId}:`, error);
+      return null;
+    }
   };
 
   const [state, setState] = useState({
-    users: {}, // objeto para mapear ID a usuario
-    usernames: {}, // objeto para mapear ID a nombre de usuario
+    users: {},
+    usernames: {},
     loading: true
   });
 
@@ -27,24 +40,32 @@ export const useFetchUsersById = (userIds) => {
     const fetchUsers = async () => {
       if (userIds && userIds.length > 0) {
         try {
-          //...Se ejecutan todas las solicitudes en paralelo usando Promise.all
           const usersData = await Promise.all(
             userIds.map(userId => getUserById(userId))
           );
-          
-          // crear objeto de mapeo de ID a usuario y nombre de usuario
-          const usersMap = usersData.reduce((acc, user) => {
-            acc.users[user._id] = user;
-            acc.usernames[user._id] = `${user.name.first} ${user.name.last}`;
+
+          const users = usersData.reduce((acc, user) => {
+            if (user) {
+              acc[user._id] = user;
+            }
             return acc;
-          }, { users: {}, usernames: {} });
+          }, {});
+
+          const usernames = usersData.reduce((acc, user) => {
+            if (user) {
+              acc[user._id] = user.name?.first && user.name?.last 
+              ? `${user.name.first} ${user.name.last}` 
+              : user.username;            }
+            return acc;
+          }, {});
 
           setState({
-            users: usersMap.users,
-            usernames: usersMap.usernames,
+            users,
+            usernames,
             loading: false
           });
         } catch (error) {
+          console.error('Error fetching users:', error);
           setState({
             users: {},
             usernames: {},

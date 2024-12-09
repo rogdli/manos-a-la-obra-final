@@ -7,7 +7,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("https://lamansysfaketaskmanagerapi.onrender.com/api/login", {
+      const response = await fetch("http://localhost:3000/api/login", {
           method: "POST",
           headers: {
               "Content-Type": "application/json",
@@ -16,25 +16,25 @@ const Login = ({ onLogin }) => {
       });
   
       const data = await response.json();
-
-      //Solo para ver qué se guarda al loguear
+  
+      // Solo para ver qué se guarda al loguear. Depuro como loco.
       console.log("Login response data:", data);
   
       if (response.ok) {
         localStorage.setItem("authToken", data.token);
         localStorage.setItem("username", username);
         localStorage.setItem("email", data.user.email);
-
+  
         onLogin(data.token);
-    
       } else {
           alert("Login failed: " + data.message);
       }
-  } catch (error) {
-      console.error("Error:", error);
-      alert("Error while trying to log in");
-  }
-};
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Error while trying to log in");
+    }
+  };
+  
 
   return (
     <div className="login-container">

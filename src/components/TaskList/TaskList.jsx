@@ -6,20 +6,21 @@ const TaskList = ({ tasks, storyId, onDeleteClick }) => {
         <div>
             {tasks.length > 0 ? (
                 <ul>
-                    {tasks
-                        .filter(task => task.story === storyId)
-                        .map(task => (
-                            <div key={task._id} className="task-item">
-                                <TaskI task={task} />
-                                <button 
-                                    onClick={() => onDeleteClick(task)}
-                                    className="delete-button"
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        ))
-                    }
+            {tasks
+            .filter(task => String(task.Story) === String(storyId)) // Compara correctamente
+            .map(task => (
+                <div key={task._id} className="task-item">
+                    <TaskI task={task} />
+                    <button 
+                        onClick={() => onDeleteClick(task)}
+                        className="delete-button"
+                    >
+              Delete
+          </button>
+      </div>
+  ))
+}
+
                 </ul>
             ) : (
                 <span>No tasks associated with this story.</span>
